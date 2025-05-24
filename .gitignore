@@ -1,0 +1,36 @@
+# ----------------------------
+# 🔹 Python cache and intermediate files
+# ----------------------------
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# ----------------------------
+# 🔹 Virtual environments
+# ----------------------------
+.venv/
+venv/
+
+# ----------------------------
+# 🔹 IDE & editor temporary files
+# ----------------------------
+.idea/
+.vscode/
+*.swp
+.DS_Store
+
+# ----------------------------
+# 🔹 Build artifacts (for future PyPI packaging)
+# ----------------------------
+build/
+dist/
+*.egg-info/
+
+# ----------------------------
+# 🔹 Temporary files generated during data construction
+#    (does not affect final JSON outputs)
+# ----------------------------
+char_table/**/*.tmp.json            # Temporary caches
+char_table/**/*.bak.json            # Backup files
+char_table/**/._*                   # macOS hidden metadata files
