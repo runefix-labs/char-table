@@ -1,8 +1,8 @@
 {
   "name": "fullwidth_variants",
-  "source": "https://unicode.org/Public/15.0.0/ucd/Blocks.txt",
-  "last_fetched": "2025-05-24T14:18:03Z",
+  "source": "https://unicode.org/Public/15.1.0/ucd/Blocks.txt",
+  "last_fetched": "2025-05-24T15:03:23Z",
   "entry_count": 103,
   "hash": "2eb2bc39e7bebd3fb8c0c46c6378aeb13807701216a8514da17e5ecdb99efccc",
-  "version": "15.0.0"
+  "version": "15.1.0"
 }
