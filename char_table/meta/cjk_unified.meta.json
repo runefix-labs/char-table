@@ -1,7 +1,7 @@
 {
   "name": "cjk_unified",
   "source": "https://unicode.org/Public/15.1.0/ucd/Blocks.txt",
-  "last_fetched": "2025-05-24T15:03:23Z",
+  "last_fetched": "2025-05-24T18:17:32Z",
   "entry_count": 93408,
   "hash": "31cac24443e9ec5d347da8e8cc3d305b3dd9f89c1d6089710ac5cb7c6e3ebc43",
   "version": "15.1.0"

@@ -32,11 +32,11 @@ def generate() -> None:
         if is_fullwidth_variant(cp):
             variant_map[chr(cp)] = 2
 
-    output_path = resolve_current_path("variants/fullwidth_variants.json")
-    with open(output_path, "w", encoding="utf-8") as f:
+    current_path = resolve_current_path("variants/fullwidth_variants.json")
+    with open(current_path, "w", encoding="utf-8") as f:
         json.dump(variant_map, f, ensure_ascii=False, indent=2)
 
-    print(f"✅ Done: {output_path} ({len(variant_map)} entries)")
+    print(f"✅ Done: {current_path} ({len(variant_map)} entries)")
 
     version = read_version_txt()
     write_meta(

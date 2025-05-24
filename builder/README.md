@@ -20,26 +20,28 @@ python -m builder.gen_datasets emoji_zwj
 python -m builder.gen_datasets cjk_unified
 python -m builder.gen_datasets japanese_kana
 python -m builder.gen_datasets korean_syllables
-python -m builder.gen_datasets variants
+python -m builder.gen_datasets fullwidth_variants
+python -m builder.gen_datasets fullwidth_punctuations
 ```
 
 ## 📁 Submodule Structure
 
-| Directory / File          | Description                                                                |
-| ------------------------- | -------------------------------------------------------------------------- |
-| `gen_datasets.py`         | Unified entry point for dataset generation and command dispatching         |
-| `generators/`             | Character data extractors for different categories                         |
-| ├── `emoji_base.py`       | Extract basic single-codepoint `emoji`                                     |
-| ├── `emoji_zwj.py`        | Extract `emoji` formed by `ZWJ` sequences (multi-codepoint)                |
-| ├── `cjk_unified.py`      | Extract unified `CJK` ideographs                                           |
-| ├── `japanese_kana.py`    | Extract Japanese kana blocks                                               |
-| ├── `korean_syllables.py` | Extract Korean syllable blocks                                             |
-| └── `variants.py`         | Extract fullwidth variant symbols                                          |
-| `utils/`                  | Common utility functions and helpers                                       |
-| ├── `emoji_source.py`     | Fetches `emoji-test.txt` from Unicode (URL is auto-generated from version) |
-| ├── `meta_writer.py`      | Writes `.meta.json` files (includes `hash`, `entry_count`, UTC timestamp)  |
-| ├── `path_utils.py`       | Resolves paths for both `current` and `meta` outputs                       |
-| └── `version.py`          | Reads `VERSION.txt` to provide global version control                      |
+| Directory / File                | Description                                                                |
+|---------------------------------| -------------------------------------------------------------------------- |
+| `gen_datasets.py`               | Unified entry point for dataset generation and command dispatching         |
+| `generators/`                   | Character data extractors for different categories                         |
+| ├── `emoji_base.py`             | Extract basic single-codepoint `emoji`                                     |
+| ├── `emoji_zwj.py`              | Extract `emoji` formed by `ZWJ` sequences (multi-codepoint)                |
+| ├── `cjk_unified.py`            | Extract unified `CJK` ideographs                                           |
+| ├── `japanese_kana.py`          | Extract Japanese kana blocks                                               |
+| ├── `korean_syllables.py`       | Extract Korean syllable blocks                                             |
+| ├── `fullwidth_variants.py`     | Extract fullwidth variants in FF01–FF60 / FFE0–FFE6                        |
+| └── `fullwidth_punctuations.py` | Manually curated list of punctuation and symbols treated as fullwidth      |
+| `utils/`                        | Common utility functions and helpers                                       |
+| ├── `emoji_source.py`           | Fetches `emoji-test.txt` from Unicode (URL is auto-generated from version) |
+| ├── `meta_writer.py`            | Writes `.meta.json` files (includes `hash`, `entry_count`, UTC timestamp)  |
+| ├── `path_utils.py`             | Resolves paths for both `current` and `meta` outputs                       |
+| └── `version.py`                | Reads `VERSION.txt` to provide global version control                      |
 
 ## 🧱 Output Conventions
 

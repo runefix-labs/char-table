@@ -1,7 +1,7 @@
 {
   "name": "emoji_base",
   "source": "https://unicode.org/Public/emoji/15.1/emoji-test.txt",
-  "last_fetched": "2025-05-24T15:03:20Z",
+  "last_fetched": "2025-05-24T18:17:30Z",
   "entry_count": 1170,
   "hash": "75f9e35b9f25b6a5002657b6d0b0d75cb7df300929e2ed65355911aa63b7a150",
   "version": "15.1.0"

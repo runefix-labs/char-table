@@ -25,9 +25,10 @@ kana:
 hangul:
 	python -m builder.gen_datasets korean_syllables
 
-## Only generate fullwidth variant table
+## Only generate fullwidth variants (includes symbols + punctuations)
 variants:
-	python -m builder.gen_datasets variants
+	python -m builder.gen_datasets fullwidth_variants
+	python -m builder.gen_datasets fullwidth_punctuations
 
 ## Archive current dataset into timestamped tar.gz
 archive:

@@ -20,7 +20,8 @@ char_table/
 - `cjk_unified`: CJK Unified Ideographs (Basic + Extension A–G)
 - `japanese_kana`: Hiragana & Katakana blocks
 - `korean_syllables`: Hangul Syllables block
-- `fullwidth_variants`: Fullwidth punctuation, Latin & symbols
+- `fullwidth_variants`: Fullwidth symbols and ASCII-like variants (FF01–FF60, FFE0–FFE6)
+- `fullwidth_punctuations`: Manually curated fullwidth punctuations and symbols used in CJK typography
 
 ## 🚀 Usage
 
