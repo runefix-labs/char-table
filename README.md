@@ -42,8 +42,10 @@ make set-version VERSION=15.1.0
 
 ## 🧾 Unicode Version
 
-The current version is defined in [`VERSION.txt`](./VERSION.txt),  
-and aligned with the official [Unicode Consortium](https://home.unicode.org/) releases.
+The current Unicode version is defined in [`VERSION.txt`](./VERSION.txt),  
+strictly aligned with the official releases from the [Unicode Consortium](https://home.unicode.org/) releases. \
+For historical version details, refer to: \
+[Unicode Version History](https://www.unicode.org/versions/enumeratedversions.html)
 
 ## 📌 CHANGELOG
 

@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## [16.0.0] - 2025-05-25
+- Updated to [Unicode 15.1.0](https://unicode.org/Public/16.0.0/).
+- Regenerated all tables using new source.
+
 ## [15.1.0] - 2025-05-25
 - Major refactor of the build system with clearer modular separation (`core`, `parser`, `writer`)
 - Added new output directory: `char_table/categories/` for storing raw character lists

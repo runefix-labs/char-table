@@ -1,8 +1,8 @@
 {
   "name": "cjk_unified",
-  "source": "https://unicode.org/Public/15.1.0/ucd/Blocks.txt",
-  "last_fetched": "2025-05-25T14:47:44Z",
+  "source": "https://unicode.org/Public/16.0.0/ucd/Blocks.txt",
+  "last_fetched": "2025-05-25T17:23:03Z",
   "entry_count": 93408,
   "hash": "31cac24443e9ec5d347da8e8cc3d305b3dd9f89c1d6089710ac5cb7c6e3ebc43",
-  "version": "15.1.0"
+  "version": "16.0.0"
 }

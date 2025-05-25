@@ -1,8 +1,8 @@
 {
   "name": "fullwidth_punctuations",
   "source": "manually_curated (CJK typography conventions)",
-  "last_fetched": "2025-05-25T14:47:45Z",
+  "last_fetched": "2025-05-25T17:23:04Z",
   "entry_count": 82,
   "hash": "32b081864cf3b7cf3d664aec8f66124ad6a34ef23b662bdeb7a8b84094278bc1",
-  "version": "15.1.0"
+  "version": "16.0.0"
 }
