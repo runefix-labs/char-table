@@ -1,45 +1,29 @@
-import json
-from builder.utils.meta_writer import write_meta
-from builder.utils.version import read_version_txt
-from builder.utils.path_utils import resolve_current_path
+from builder.core.version import read_version
 
+from builder.parser.language_parser import extract_lang_map
 
-def is_korean_syllable(cp: int) -> bool:
-    """
-    Check whether the given code point is a Hangul Syllable (Korean).
-
-    Unicode range: U+AC00 to U+D7AF — precomposed modern Hangul syllables (11,172 total).
-    Reference: https://www.unicode.org/charts/PDF/UAC00.pdf
-
-    Args:
-        cp (int): Unicode code point
-
-    Returns:
-        bool: True if the character is a Korean syllable
-    """
-    return 0xAC00 <= cp <= 0xD7AF
+from builder.writer.meta_writer import write_meta_json
+from builder.writer.row_writer import write_category_text
+from builder.writer.default_writer import write_current_json
 
 
 def generate() -> None:
     """
-    Main generator function. Extracts all Hangul syllables and writes to korean_syllables.json.
-    A corresponding .meta.json file is also created.
+    Generates korean_syllables.json, its metadata (.meta.json), and plain character list (.txt).
+    Includes all 11,172 precomposed modern Hangul syllables (U+AC00–U+D7AF).
+    Source: Unicode UCD Blocks.txt
     """
-    syllable_map = {}
+    version = read_version()
 
-    for cp in range(0xAC00, 0xD7B0):  # Inclusive range: AC00 to D7AF
-        syllable_map[chr(cp)] = 2
+    data = extract_lang_map("korean_syllables")
 
-    current_path = resolve_current_path("cjk/korean_syllables.json")
-    with open(current_path, "w", encoding="utf-8") as f:
-        json.dump(syllable_map, f, ensure_ascii=False, indent=2)
+    write_current_json("cjk", "korean_syllables", data)
 
-    print(f"✅ Done: {current_path} ({len(syllable_map)} entries)")
-
-    version = read_version_txt()
-    write_meta(
+    write_meta_json(
         name="korean_syllables",
         source_url=f"https://unicode.org/Public/{version}/ucd/Blocks.txt",
         target_rel_path="cjk/korean_syllables.json",
-        entry_count=len(syllable_map)
+        entry_count=len(data),
     )
+
+    write_category_text("korean_syllables", data)

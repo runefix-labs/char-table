@@ -1,32 +1,31 @@
-# Makefile for char-table dataset generation
+# Makefile for char-table dataset generation and utilities
+# --------------------------------------------------------
+# Provides convenient aliases for running dataset generators,
+# managing Unicode versioning, and archiving output files.
 
+# Default goal when running `make`
 .DEFAULT_GOAL := all
 
-.PHONY: all emoji cjk kana hangul variants archive version set-version
+# Declare all targets as phony (non-file-based)
+.PHONY: all emoji language symbols archive version set-version
 
-## Default: generate all datasets
+## Generate all datasets (emoji, CJK, symbols)
 all:
 	python -m builder.gen_datasets all
 
-## Only generate emoji_base + emoji_zwj
+## Generate emoji-related datasets only (base, zwj)
 emoji:
 	python -m builder.gen_datasets emoji_base
 	python -m builder.gen_datasets emoji_zwj
 
-## Only generate CJK unified
-cjk:
+## Generate all language blocks (CJK, kana, hangul)
+language:
 	python -m builder.gen_datasets cjk_unified
-
-## Only generate Japanese kana
-kana:
 	python -m builder.gen_datasets japanese_kana
-
-## Only generate Korean syllables
-hangul:
 	python -m builder.gen_datasets korean_syllables
 
-## Only generate fullwidth variants (includes symbols + punctuations)
-variants:
+## Generate symbol-related datasets only (variants, punctuations)
+symbols:
 	python -m builder.gen_datasets fullwidth_variants
 	python -m builder.gen_datasets fullwidth_punctuations
 
@@ -38,6 +37,6 @@ archive:
 version:
 	@echo "📦 Unicode version: $$(cat VERSION.txt)"
 
-## Set Unicode version via VERSION.txt
+## Set Unicode version manually
 set-version:
 	bash scripts/set_version.sh $(VERSION)

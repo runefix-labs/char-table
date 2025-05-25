@@ -1,7 +1,7 @@
 {
   "name": "korean_syllables",
   "source": "https://unicode.org/Public/15.1.0/ucd/Blocks.txt",
-  "last_fetched": "2025-05-24T18:17:32Z",
+  "last_fetched": "2025-05-25T14:47:45Z",
   "entry_count": 11184,
   "hash": "8b266cb49db46140e3ca026e8ed97e7db9e504c6621611943953e3a7afbb0314",
   "version": "15.1.0"

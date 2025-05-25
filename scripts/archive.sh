@@ -11,6 +11,7 @@ mkdir -p "$ARCHIVE_DIR"
 
 tar $TAR_OPTS -czf "$ARCHIVE_DIR/$FILENAME" \
     char_table/current \
+    char_table/categories \
     char_table/meta
 
 echo "✅ Archive created: $ARCHIVE_DIR/$FILENAME"

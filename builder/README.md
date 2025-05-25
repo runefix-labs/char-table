@@ -26,30 +26,64 @@ python -m builder.gen_datasets fullwidth_punctuations
 
 ## 📁 Submodule Structure
 
-| Directory / File                | Description                                                                |
-|---------------------------------| -------------------------------------------------------------------------- |
-| `gen_datasets.py`               | Unified entry point for dataset generation and command dispatching         |
-| `generators/`                   | Character data extractors for different categories                         |
-| ├── `emoji_base.py`             | Extract basic single-codepoint `emoji`                                     |
-| ├── `emoji_zwj.py`              | Extract `emoji` formed by `ZWJ` sequences (multi-codepoint)                |
-| ├── `cjk_unified.py`            | Extract unified `CJK` ideographs                                           |
-| ├── `japanese_kana.py`          | Extract Japanese kana blocks                                               |
-| ├── `korean_syllables.py`       | Extract Korean syllable blocks                                             |
-| ├── `fullwidth_variants.py`     | Extract fullwidth variants in FF01–FF60 / FFE0–FFE6                        |
-| └── `fullwidth_punctuations.py` | Manually curated list of punctuation and symbols treated as fullwidth      |
-| `utils/`                        | Common utility functions and helpers                                       |
-| ├── `emoji_source.py`           | Fetches `emoji-test.txt` from Unicode (URL is auto-generated from version) |
-| ├── `meta_writer.py`            | Writes `.meta.json` files (includes `hash`, `entry_count`, UTC timestamp)  |
-| ├── `path_utils.py`             | Resolves paths for both `current` and `meta` outputs                       |
-| └── `version.py`                | Reads `VERSION.txt` to provide global version control                      |
+### Top-Level
+
+| Path              | Description                                     |
+| ----------------- | ----------------------------------------------- |
+| `gen_datasets.py` | Main CLI entry point for all dataset generation |
+| `VERSION.txt`     | Controls the Unicode version for all builds     |
+
+### generators/
+
+Each file contains a `generate()` function that extracts and writes one dataset.
+
+| File                        | Dataset Description                                             |
+| --------------------------- | --------------------------------------------------------------- |
+| `emoji_base.py`             | Single-codepoint fully-qualified emoji                          |
+| `emoji_zwj.py`              | ZWJ / multi-codepoint emoji sequences                           |
+| `cjk_unified.py`            | CJK Unified Ideographs (Basic + A–G + Compatibility)            |
+| `japanese_kana.py`          | All Hiragana, Katakana, and extended kana ranges                |
+| `korean_syllables.py`       | 11,172 modern Hangul syllables (U+AC00–U+D7AF)                  |
+| `fullwidth_variants.py`     | Fullwidth Latin / symbol variants (FF01–FF60, FFE0–FFE6)        |
+| `fullwidth_punctuations.py` | Manually curated wide punctuation used in East Asian typography |
+
+### core/
+
+Low-level utilities shared across parsers and writers.
+
+| File              | Purpose                                        |
+| ----------------- | ---------------------------------------------- |
+| `emoji_source.py` | Fetches `emoji-test.txt` from Unicode.org      |
+| `path_utils.py`   | Resolves output paths for JSON and metadata    |
+| `version.py`      | Parses Unicode version info from `VERSION.txt` |
+
+### parser/
+
+Encapsulates all Unicode classification and extraction logic.
+
+| File                 | Purpose                                                             |
+| -------------------- | ------------------------------------------------------------------- |
+| `emoji_parser.py`    | Parses emoji data by mode: `base` or `zwj`                          |
+| `language_parser.py` | Handles extraction for `cjk_unified`, `kana`, `hangul`              |
+| `symbol_parser.py`   | Handles fullwidth symbol detection and curated punctuation mappings |
+| `constants.py`       | Centralizes mode enums for emoji/language/symbol parsing            |
+
+### writer/
+
+Responsible for writing various output formats.
+
+| File                | Purpose                                                        |
+|---------------------| -------------------------------------------------------------- |
+| `default_writer.py` | Writes main `.json` dataset files under `char_table/current/`  |
+| `meta_writer.py`    | Writes `.meta.json` files with hash, source, and timestamps    |
+| `row_writer.py`     | Writes plain `.txt` file listing each character (one per line) |
 
 ## 🧱 Output Conventions
 
-- All generated datasets are saved under `char_table/current/`.
-
-- Each data file is paired with a corresponding `.meta.json` file written to `char_table/meta/`.
-
-- All Unicode versioning is controlled centrally via `VERSION.txt` in the project root (e.g., `"15.1.0"`).
+- All generated `.json` files are saved under `char_table/current/`. 
+- Corresponding `.meta.json` metadata goes under `char_table/meta/`. 
+- Plain `.txt` character lists (one char per line) accompany each dataset. 
+- Unicode versioning is managed globally by `VERSION.txt`.
 
 ## 🔒 Metadata Format
 

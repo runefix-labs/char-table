@@ -8,9 +8,10 @@
 
 ```text
 char_table/
-├── current/   # All up-to-date dataset files
-├── archive/   # Optional: historical snapshots
-└── meta/      # Metadata for each dataset
+├── archive/      # Optional: timestamped snapshots (.tar.gz)
+├── categories/   # Raw character lists (plain .txt), no width values
+├── current/      # Default output: JSON maps with width info (e.g. {"🌍": 2})
+└── meta/         # Auto-generated metadata (.meta.json) for each dataset
 ```
 
 ## 📜 Supported Tables

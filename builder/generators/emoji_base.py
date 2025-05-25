@@ -1,62 +1,29 @@
-import json
-from typing import List, Dict
-from builder.utils.meta_writer import write_meta
-from builder.utils.version import read_version_txt
-from builder.utils.path_utils import resolve_current_path
-from builder.utils.emoji_source import fetch_emoji_test_txt
+from builder.core.version import major_minor
 
+from builder.parser.emoji_parser import extract_emoji_map
 
-def parse_emoji_base(raw_lines: List[str]) -> Dict[str, int]:
-    """
-    Parse emoji-test.txt lines and extract all fully-qualified single-codepoint emojis.
-
-    Args:
-        raw_lines (List[str]): Raw lines from emoji-test.txt
-
-    Returns:
-        Dict[str, int]: A dictionary mapping each single-character emoji to width 2
-    """
-    emoji_map: Dict[str, int] = {}
-
-    for line in raw_lines:
-        line = line.strip()
-        if not line or line.startswith('#'):
-            continue
-        if "; fully-qualified" not in line:
-            continue
-
-        codepoints_str, comment = line.split(';')[0], line.split('#')[1].strip()
-        emoji_char = comment.split(' ')[0]
-
-        # Skip multi-codepoint (composite) emojis, only keep single characters
-        if ' ' in codepoints_str.strip():
-            continue
-
-        emoji_map[emoji_char] = 2
-
-    return emoji_map
+from builder.writer.meta_writer import write_meta_json
+from builder.writer.row_writer import write_category_text
+from builder.writer.default_writer import write_current_json
 
 
 def generate() -> None:
     """
-    Main entry point. Downloads emoji-test.txt, extracts single-character emojis,
-    writes to emoji_base.json, and generates the corresponding metadata.
+    Generates emoji_base.json, its metadata (.meta.json), and plain character list (.txt).
+    Includes only single-codepoint fully-qualified emojis.
+    Source: emoji-test.txt from Unicode Consortium
     """
-    lines = fetch_emoji_test_txt()
-    emoji_data = parse_emoji_base(lines)
+    version = major_minor()
 
-    current_path = resolve_current_path("emoji/emoji_base.json")
-    with open(current_path, "w", encoding="utf-8") as f:
-        json.dump(emoji_data, f, ensure_ascii=False, indent=2)
+    data = extract_emoji_map(mode="emoji_base")
 
-    print(f"✅ Done: {current_path} ({len(emoji_data)} entries)")
+    write_current_json("emoji", "emoji_base", data)
 
-    # Write corresponding .meta.json
-    version = read_version_txt()
-    emoji_version = ".".join(version.split(".")[:2])
-    write_meta(
+    write_meta_json(
         name="emoji_base",
-        source_url=f"https://unicode.org/Public/emoji/{emoji_version}/emoji-test.txt",
+        source_url=f"https://unicode.org/Public/emoji/{version}/emoji-test.txt",
         target_rel_path="emoji/emoji_base.json",
-        entry_count=len(emoji_data)
+        entry_count=len(data)
     )
+
+    write_category_text("emoji_base", data)

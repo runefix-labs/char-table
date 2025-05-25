@@ -1,47 +1,29 @@
-import json
-from builder.utils.meta_writer import write_meta
-from builder.utils.version import read_version_txt
-from builder.utils.path_utils import resolve_current_path
+from builder.core.version import read_version
 
+from builder.parser.symbol_parser import extract_symbol_map
 
-def is_fullwidth_variant(cp: int) -> bool:
-    """
-    Determines whether a given Unicode code point is a fullwidth variant character.
-
-    Fullwidth range:
-      - U+FF01 to U+FF60 (common fullwidth symbols, digits, Latin letters)
-      - U+FFE0 to U+FFE6 (additional fullwidth symbols)
-
-    Args:
-        cp (int): Unicode code point
-
-    Returns:
-        bool: True if the code point is considered a fullwidth variant
-    """
-    return 0xFF01 <= cp <= 0xFF60 or 0xFFE0 <= cp <= 0xFFE6
+from builder.writer.meta_writer import write_meta_json
+from builder.writer.row_writer import write_category_text
+from builder.writer.default_writer import write_current_json
 
 
 def generate() -> None:
     """
-    Generate the fullwidth variants table (fullwidth_variants.json),
-    which maps common fullwidth characters to width 2 for display alignment purposes.
+    Generates fullwidth_variants.json, its metadata (.meta.json), and plain character list (.txt).
+    Covers fullwidth Latin, digits, symbols in FFXX/FFE0–FFE6 blocks.
+    Source: Unicode UCD Blocks.txt
     """
-    variant_map = {}
+    version = read_version()
 
-    for cp in range(0x110000):
-        if is_fullwidth_variant(cp):
-            variant_map[chr(cp)] = 2
+    data = extract_symbol_map("fullwidth_variants")
 
-    current_path = resolve_current_path("variants/fullwidth_variants.json")
-    with open(current_path, "w", encoding="utf-8") as f:
-        json.dump(variant_map, f, ensure_ascii=False, indent=2)
+    write_current_json("variants", "fullwidth_variants", data)
 
-    print(f"✅ Done: {current_path} ({len(variant_map)} entries)")
-
-    version = read_version_txt()
-    write_meta(
+    write_meta_json(
         name="fullwidth_variants",
         source_url=f"https://unicode.org/Public/{version}/ucd/Blocks.txt",
         target_rel_path="variants/fullwidth_variants.json",
-        entry_count=len(variant_map)
+        entry_count=len(data)
     )
+
+    write_category_text("fullwidth_variants", data)

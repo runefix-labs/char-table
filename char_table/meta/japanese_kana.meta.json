@@ -1,7 +1,7 @@
 {
   "name": "japanese_kana",
   "source": "https://unicode.org/Public/15.1.0/ucd/Blocks.txt",
-  "last_fetched": "2025-05-24T18:17:32Z",
+  "last_fetched": "2025-05-25T14:47:45Z",
   "entry_count": 576,
   "hash": "52dd97ba61ff821506de07adcab194277e447be61b0e5de0975d3d77094fbf03",
   "version": "15.1.0"

@@ -2,11 +2,11 @@ import json
 import hashlib
 from datetime import datetime, timezone
 
-from builder.utils.version import read_version_txt
-from builder.utils.path_utils import resolve_current_path, resolve_meta_path
+from builder.core.version import read_version
+from builder.core.path_utils import resolve_current_path, resolve_meta_path
 
 
-def write_meta(name: str, source_url: str, target_rel_path: str, entry_count: int) -> None:
+def write_meta_json(name: str, source_url: str, target_rel_path: str, entry_count: int) -> None:
     """
     Write a corresponding metadata file for a given dataset,
     saving it under char_table/meta/.
@@ -30,7 +30,7 @@ def write_meta(name: str, source_url: str, target_rel_path: str, entry_count: in
     iso_time = now.isoformat(timespec="seconds").replace("+00:00", "Z")
 
     # Read global version from VERSION.txt
-    version = read_version_txt()
+    version = read_version()
 
     # Compose metadata object
     meta = {
